@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new category
   try{
-    const locationData = await Category.create({
+    const locationData = await Category.create(req.body, {
       category_id: req.body.category_id,
     });
     res.status(200).json(locationData);
@@ -53,10 +53,10 @@ router.put('/:id', (req, res) => {
     if(!categoryData){
       res.status(404).json({message: 'No results found'})
     }
-    res.json(categoryData);
+    res.status(200).json(categoryData);
   })
   .catch(err=>{
-    res.status(500).json(err);
+    res.status(400).json(err);
   })
 });
 
